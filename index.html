@@ -28,6 +28,8 @@
 
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+
 </head>
 
 <body>
@@ -178,7 +180,7 @@
             <div class="card-body text-dark" style="font-size: 18px;">
                 <i>Struggling with knee pain? You're not alone. Osteoarthritis (OA) affects 1 in 4 people over the age of 45 and is a leading cause of disability. What's worse, traditional treatments often fail to provide lasting relief. OA progresses in stages, from minor discomfort to severe debilitation. Introducing the Free Stage Analyzer by 'The Specialist'.</i>
                 <p>Discover where you or your loved one stands in the progression of knee OA and learn about alternatives to surgical intervention.</p>
-                <p>Fill out this form to take the first step toward reclaiming your mobility. <br> <a href="https://forms.microsoft.com/r/ZNf8iZBdjz" target="_blank" rel="noopener noreferrer">Heading free knee pain stage analysis</a></p>
+                <p>Fill out this form to take the first step toward reclaiming your mobility. <br> <a href="https://forms.microsoft.com/r/ZNf8iZBdj" target="_blank" rel="noopener noreferrer">Heading free knee pain stage analysis</a></p>
             </div>
         </div>
     </div>
@@ -195,7 +197,7 @@
                 <div class="col-lg-12">
                     <div class="bg-white text-center rounded p-5">
                         <h1 class="mb-4">Get in touch with us!</h1>
-                        <form >
+                        <form id="contact-form">
                             <div class="row g-3">
                                 
                                 
@@ -214,7 +216,7 @@
                                 </div>
                                 
                                 <div class="col-12">
-                                    <button class="btn btn-primary w-100 py-3" type="submit" onsubmit="submitForm(event)">Submit</button>
+                                    <button class="btn btn-primary w-100 py-3" type="submit">Submit</button>
                                 </div>
                             </div>
                         </form>
@@ -276,38 +278,29 @@
             });
         });
     </script>
-
+    
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const form = document.querySelector('form');
+        (function() {
+            emailjs.init("c1QbzKPc_DrhojctN"); // Replace "YOUR_USER_ID" with your actual User ID
+        })();
+    </script>
+    <script>
+        document.getElementById('contact-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const formData = new FormData(this);
     
-            form.addEventListener('submit', function (event) {
-                event.preventDefault();
-    
-                const formData = new FormData(form);
-                const data = {};
-    
-                formData.forEach((value, key) => {
-                    data[key] = value;
-                });
-    
-                fetch('https://script.google.com/macros/s/1AGEh2Y8gpB2pSKgJ2KhpDHAYzTLkm1IXYjq3gRTRpHlrAvZ3JA8P6ID7/exec', {
-                    method: 'POST',
-                    body: JSON.stringify(data),
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                })
-                .then(response => {
-                    alert("success")
-                })
-                .catch(error => {
-                    // Handle errors, e.g., show an error message
-                });
+            emailjs.send("service_fwc098v", "template_5lofvks", {
+                name: formData.get("name"),
+                mobilenumber: formData.get("mobilenumber"),
+                message: formData.get("message")
+            }).then(function(response) {
+                alert("Email sent successfully!");
+                // Clear the form or perform any other actions here
+            }, function(error) {
+                alert("Error sending email: " + error);
             });
         });
     </script>
-    
     
 
 
