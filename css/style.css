@@ -96,10 +96,28 @@
     }
 }
 
+/* CSS for the hero header */
 .hero-header {
-    background: url(../img/hero.jpg) top right no-repeat;
     background-size: cover;
+    animation: changeBackground 10s infinite;
 }
+
+/* Keyframes to animate background change */
+@keyframes changeBackground {
+    0% {
+        background-image: url(../img/hero.jpg);
+    }
+    33% {
+        background-image: url(../img/p1.jpeg);
+    }
+    66% {
+        background-image: url(../img/p2.jpeg);
+    }
+    100% {
+        background-image: url(../img/hero.jpg);
+    }
+}
+
 
 .service-item {
     position: relative;
